@@ -8,15 +8,18 @@ const users: any = {
     },
   },
   actions: {
-    async fetchUsers(ctx: any) {
+    async fetchUsers({ commit }: any) {
       const res = await fetch("https://jsonplaceholder.typicode.com/users");
       const users = await res.json();
-      ctx.commit("updateUsers", users);
+      commit("updateUsers", users);
     },
   },
   getters: {
     allUsers(state: StateType) {
       return state.users;
+    },
+    usersState(state: StateType) {
+      return state.users.length;
     },
   },
   seters: {},

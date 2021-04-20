@@ -1,7 +1,7 @@
 <template>
   <div class="users">
     <h1>Here users page</h1>
-
+    <h2>{{ usersState }}</h2>
     <ul v-for="user of allUsers" :key="user.id">
       <div class="user-card">
         <span class="user-card__name">{{ user.name }}</span
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Users",
   data() {
@@ -20,9 +20,10 @@ export default {
       users: [],
     };
   },
-  computed: mapGetters(["allUsers"]),
+  computed: { ...mapGetters(["allUsers", "usersState"]) },
+  methods: { ...mapActions(["fetchUsers"]) },
   async mounted() {
-    this.$store.dispatch("fetchUsers");
+    this.fetchUsers();
   },
 };
 </script>
